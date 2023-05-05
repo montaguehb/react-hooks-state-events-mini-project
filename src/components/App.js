@@ -10,28 +10,22 @@ console.log({ CATEGORIES, TASKS });
 function App() {
   
   const [clicked, setClicked] = useState("")
-  const [form, setForm] = useState("")
+  
   const [tasks, setTasks] = useState(TASKS)
-  const [categorie, setCategorie] = useState("code")
+
   function handleClick (event) {
     setClicked(event.target.textContent)
   }
 
-  function handleFormChange (event) {
-    setForm(event.target.value)
-  }
-  function onTaskFormSubmit(e) {
-    e.preventDefault()
-    setTasks([...tasks, {text: form,category: categorie}])
-  }
-  function handleCategoryChange (e) {
-    setCategorie(e.target.value)
+
+  function onTaskFormSubmit(formObj) {
+    setTasks([...tasks, formObj])
   }
   return (
     <div className="App">
       <h2>My tasks</h2>
       <CategoryFilter categories={CATEGORIES}  clicked={clicked} handleClick={handleClick}/>
-      <NewTaskForm categories={CATEGORIES} categorie={categorie} handleFormChange={handleFormChange} form={form}  onTaskFormSubmit={onTaskFormSubmit} handleCategoryChange={handleCategoryChange}/>
+      <NewTaskForm categories={CATEGORIES} onTaskFormSubmit={onTaskFormSubmit}/>
       <TaskList tasks={tasks} clicked={clicked} setTasks={setTasks}/>
     </div>
   );
